@@ -1,7 +1,7 @@
 const { Router } = require("express");
-const { UserModel } = require("../db");
+const { UserModel, CourseModel } = require("../db");
 const { bcrypt, z, jwt } = require("../utils/libs");
-const JWT_USER_SECRET = "nikva3837nkaadlfuaanvav";
+const { userMiddleware } = require("../middlewares/user");
 
 const userRouter = Router();
 
@@ -66,8 +66,8 @@ userRouter.post("/signin", async function(req, res) {
 
     if(passwordMatch) {
         const token = jwt.sign({
-            userId: user._id.toString()
-        }, JWT_USER_SECRET)
+            id: user._id.toString()
+        }, process.env.JWT_USER_SECRET)
         res.json({
             token: token
         })
@@ -78,7 +78,7 @@ userRouter.post("/signin", async function(req, res) {
     }
 });
 
-userRouter.get("/owned", function(req, res) {
+userRouter.get("/owned", userMiddleware, async function(req, res) {
 
 })
 

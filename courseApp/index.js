@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 const { userRouter } = require("./routes/user");
 const { courseRouter } = require("./routes/course");
@@ -13,8 +14,16 @@ app.use("/api/v1/admin", adminRouter);
 app.use("/api/v1/course", courseRouter);
 
 async function main() {
-    await mongoose.connect("mongodb+srv://nik:29IcOSqcV4g1qgfN@cluster0.5lf5tpm.mongodb.net/courseAppDB");
-    app.listen(3000);
+  try {
+    await mongoose.connect(process.env.MONGO_URL);
+    console.log("Connected to MongoDB");
+
+    app.listen(3000, () => {
+      console.log("Server running on http://localhost:3000");
+    });
+  } catch (err) {
+    console.error("MongoDB connection failed", err);
+  }
 }
 
 main();
