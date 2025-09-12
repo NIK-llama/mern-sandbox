@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const { UserModel } = require("../db");
 const { bcrypt, z, jwt } = require("../utils/libs");
-const JWT_SECRET = "nikva3837nkaadlfuaanvav";
+const JWT_USER_SECRET = "nikva3837nkaadlfuaanvav";
 
 const userRouter = Router();
 
@@ -10,7 +10,7 @@ userRouter.post("/signup", async function(req, res) {
         email: z.string().min(5).max(30).email(),
         password: z.string().min(4).max(40),
         firstname: z.string().min(2).max(30),
-        lastname: z.string().min(2).max(30),
+        lastname: z.string().min(2).max(30)
     })
 
     const parsedData = requiredBody.safeParse(req.body);
@@ -67,7 +67,7 @@ userRouter.post("/signin", async function(req, res) {
     if(passwordMatch) {
         const token = jwt.sign({
             userId: user._id.toString()
-        }, JWT_SECRET)
+        }, JWT_USER_SECRET)
         res.json({
             token: token
         })
