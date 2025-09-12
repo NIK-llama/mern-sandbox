@@ -8,7 +8,7 @@ function adminMiddleware(req,res,next) {
         req.id = decodedToken.id
         next()
     } else {
-        res.status(403).json({
+        res.status(401).json({
             message: "You are not signed in"
         })
     }
