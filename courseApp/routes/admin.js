@@ -81,22 +81,6 @@ adminRouter.post("/signin", async function(req, res) {
 adminRouter.post("/course", adminMiddleware, async function(req, res) {
     const adminId = req.id;
 
-    const requireBody = z.object({
-        title: z.string().min(3),
-        description: z.string().min(10),
-        imageUrl: z.string().url(),
-        price: z.number().positive(),
-    })
-
-    const parsedData = requireBody.safeParse(req.body);
-
-    if(!parsedData){
-        return res.json({
-            message: "Incorrect data format",
-            error: parsedData.error,
-        })
-    }
-
     const {title,description,imageUrl,price} = req.body;
 
     const course = await CourseModel.create({ 
@@ -111,45 +95,38 @@ adminRouter.post("/course", adminMiddleware, async function(req, res) {
         message: "Course created",
         courseId: course._id
     })
-})
+});
 
 adminRouter.put("/course",adminMiddleware, async function(req, res) {
     const adminId = req.id;
 
-    const requireBody = z.object({
-        courseId: z.string().min(5),
-        title: z.string().min(3).optional(),
-        description: z.string().min(5).optional(), 
-        imageUrl: z.string().url().min(5).optional(),
-        price: z.number().positive().optional(),
-    });
-
-    const parsedData = requireBody.safeParse(req.body);
-
-    if(!parsedData){
-        return res.json({
-            message: "Incorrect data format",
-            error: parsedData.error
-        });
-    }
-
     const {title,description,imageUrl,price,courseId} = req.body;
 
-    const course = await CourseModel.findOne({
-        _id: courseId,
+    const result = await CourseModel.updateOne(
+        { _id: courseId, createrId: adminId },
+        { title, description, imageUrl, price }
+    );
+
+    if (result.matchedCount === 0) {
+        return res.status(404).json({ message: "Course not found or not authorized" });
+    }
+
+    res.json({ message: "Course updated successfully" });
+
+});
+
+adminRouter.get("/course/bulk", adminMiddleware,async function(req, res) {
+    const adminId = req.id;
+
+    const courses = await CourseModel.find({
         createrId: adminId
     })
 
-
     res.json({
-        message: "Course Updated",
-        courseId: course._id
+        message: "Your Courses",
+        courses
     })
-})
-
-adminRouter.get("/course/bulk", function(req, res) {
-
-})
+});
 
 module.exports = {
     adminRouter: adminRouter

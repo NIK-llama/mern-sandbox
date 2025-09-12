@@ -79,7 +79,7 @@ userRouter.post("/signin", async function(req, res) {
 });
 
 userRouter.get("/owned", userMiddleware, async function(req, res) {
-
+    
 })
 
 module.exports = {
