@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { UserModel, CourseModel } = require("../db");
+const { UserModel, CourseModel, PurchaseModel } = require("../db");
 const { bcrypt, z, jwt } = require("../utils/libs");
 const { userMiddleware } = require("../middlewares/user");
 
@@ -79,8 +79,29 @@ userRouter.post("/signin", async function(req, res) {
 });
 
 userRouter.get("/owned", userMiddleware, async function(req, res) {
+    const userId = req.id;
     
-})
+    const purchases = await PurchaseModel.find({
+        userId
+    })
+
+    if(!purchases) {
+        res.json({
+            message: "No purchases found"
+        })
+    }
+
+    const purchasedCourseIds = purchases.map((purchase) => purchase.courseId);
+
+    const courseData = await CourseModel.find({
+        _id: {$in:purchasedCourseIds}
+    })
+
+    res.json({
+        purchases,
+        courseData
+    })
+});
 
 module.exports = {
     userRouter: userRouter
