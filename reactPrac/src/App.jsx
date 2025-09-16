@@ -2,44 +2,58 @@ import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import { useFormState } from 'react-dom';
 
 function App() {
-  let [counterVisible, setcounterVisible] = useState(true);
+  const [currentTab, setCurrentTab] = useState(1);
+  const [tabData, setTabData] = useState({});
+  const [loading, setLoading] = useState(true);
 
-  useEffect(function() {
-    setInterval(() => {
-      setcounterVisible(c => !c)
-    }, 5000);
-  },[])
+  useEffect(() => {
+    setLoading(true);
+
+    fetch("https://jsonplaceholder.typicode.com/todos/" + currentTab).then(async (res) => {
+      const json = await res.json();
+      setTabData(json);
+      setLoading(false);
+    });
+  }, [currentTab]);
 
   return (
-    <div>
-      <b>Hello Wrold!!</b>
-      {counterVisible ? <Counter></Counter> : null}
+    <div style={{ margin: 20, textAlign:'center'}}>
+      <button onClick={function() {
+        setCurrentTab(1);
+      }}
+      style={{ color: currentTab === 1 ? "yellow" : "blue"}}
+      >
+        Todo #1
+      </button>
+      <button onClick={function() {
+        setCurrentTab(2);
+      }}
+      style={{ color: currentTab === 2 ? "yellow" : "blue"}}
+      >
+        Todo #2
+      </button>
+      <button onClick={function() {
+        setCurrentTab(3);
+      }}
+      style={{ color: currentTab === 3 ? "yellow" : "blue"}}
+      >
+        Todo #3
+      </button>
+      <button onClick={function() {
+        setCurrentTab(4);
+      }}
+      style={{ color: currentTab === 4 ? "yellow" : "blue"}}
+      >
+        Todo #4
+      </button>
+
+      <div>{loading ? "Loading..." : tabData.title}</div>
     </div>
   )
 }
 
-function Counter() {
-  const [count, setCount] = useState(0);
-
-  useEffect(function() {
-    let clock = setInterval(() => {
-      console.log("inside setinterval");
-      setCount(count => count + 1);
-    }, 1000)
-
-    return function() {
-      console.log("on unmount");
-      clearInterval(clock);
-    }
-  }, []);
-
-  return (
-    <div>
-      <h1 id='text'>{count}</h1>
-    </div>
-  )
-}
 
 export default App
