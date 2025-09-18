@@ -12,7 +12,7 @@ function App() {
         <div>
             <h1>My TodoList</h1>
             {todos.map(todo => (
-                <Todo key={todo.title} title={todo.title} done={todo.done}/>
+                <Todo key={todo.id} title={todo.title} done={todo.done}/>
             ))}
         </div>
     )
