@@ -1,17 +1,30 @@
 import { useState, useEffect } from "react";
 
-export function usePostTitle() {
-    const [post, setpost] = useState({});
+export function useFetch(url) {
+    const [finalData, setFinalData] = useState({});
+    const [loading, setloading] = useState(true);
 
-    async function getPosts() {
-        const response = await fetch("https://jsonplaceholder.typicode.com/posts/1");
+    async function getDetails() {
+        setloading(true);
+        const response = await fetch(url);
         const json = await response.json();
-        setpost(json);
+        setFinalData(json);
+        setloading(false);
     }
 
     useEffect(() => {
-        getPosts();
-    },[]) 
+        getDetails();
+    },[url])
 
-    return post.title;
+    useEffect(() => {
+        const clock = setInterval(() => {
+            getDetails(); 
+        }, 10 * 1000);
+
+        return function() {
+            clearInterval(clock);
+        }
+    },[url])
+
+    return { finalData, loading };
 }
