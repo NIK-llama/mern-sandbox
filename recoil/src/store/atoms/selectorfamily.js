@@ -6,7 +6,7 @@ export const todoAtomFamily = atomFamily({
     default: selectorFamily({
         key: "todoSelectorFamily",
         get: (id) => async ({get}) => {
-            const res = await axios.get("");
+            const res = await axios.get(`https://nosuchwebsite383274/todo?id=${id}`);
             return res.data.todo;
         }
     }) 

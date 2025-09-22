@@ -1,5 +1,6 @@
 import './App.css'
-import { RecoilRoot, useRecoilState, useRecoilValue} from 'recoil'
+import { RecoilRoot, useRecoilState, useRecoilStateLoadable, useRecoilValue} from 'recoil'
+import { todoAtomFamily } from './store/atoms/selectorfamily';
 
 function App() {
     return (
@@ -11,13 +12,28 @@ function App() {
 }
 
 function Todo({id}) {
-    const [todo, setTodo] = useRecoilState();
-    return (
-        <>
-            {todo.title } {todo.description}
-            <br />
-        </>
-    )
+    const [todo, setTodo] = useRecoilStateLoadable(todoAtomFamily(id));
+    
+    if (todo.state === "loading") {
+        return (
+            <div>
+                loading...
+            </div>
+        )
+    } else if (todo.state === "hasValue") {
+        return (
+            <div>
+                some stuff
+                <br />
+            </div>
+        )
+    } else if (todo.state === "hasError") {
+        return (
+            <div>
+                Error while getting data from backend
+            </div>
+        )
+    }
 }
 
 export default App
