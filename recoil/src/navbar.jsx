@@ -1,6 +1,7 @@
 import './App.css'
-import { RecoilRoot, useRecoilValue, useSetRecoilState } from 'recoil'
-import { jobAtom, messagingAtom, networkAtom, notificationAtom, totalNotificationSelector } from './store/atoms/navbar'
+import { RecoilRoot, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
+import { notifications, totalNotificationSelector } from './store/atoms/navbar'
+
 
 function App() {
     return (
@@ -11,20 +12,17 @@ function App() {
 }
 
 function MainApp() {
-    const networkNotificationCount = useRecoilValue(networkAtom);
-    const jobsCount = useRecoilValue(jobAtom);
-    const notificationsCount = useRecoilValue(notificationAtom);
-    const messageCount = useRecoilValue(messagingAtom);
+    const [networkCount, setNetworkCount] = useRecoilState(notifications);
     const totalNotificationCount = useRecoilValue(totalNotificationSelector);
 
     return (
         <>
             <button>Home</button>
 
-            <button>My network {(networkNotificationCount >= 100) ? "99+" : networkNotificationCount}</button>
-            <button>Jobs {jobsCount}</button>
-            <button>Messaging {messageCount}</button>
-            <button>Notification {notificationsCount}</button>
+            <button>My network {(networkCount.network >= 100) ? "99+" : networkCount.network}</button>
+            <button>Jobs {networkCount.jobs}</button>
+            <button>Messaging {networkCount.messaging}</button>
+            <button>Notification {networkCount.notification}</button>
 
             <button>Me {totalNotificationCount}</button>
         </>
