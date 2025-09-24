@@ -7,9 +7,13 @@ function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <div>
-      Hello
-    </div>
+    <>
+      <div className='grid grid-cols-12'>
+        <div className='bg-blue-400 col-span-5'>hello</div>
+        <div className='bg-red-400 col-span-5'>hi</div>
+        <div className='bg-green-400 col-span-2'>yoo</div>
+      </div>
+   </>
   )
 }
 
