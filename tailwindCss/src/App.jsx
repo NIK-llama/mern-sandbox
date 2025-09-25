@@ -8,10 +8,10 @@ function App() {
 
   return (
     <>
-      <div className='grid grid-cols-12'>
-        <div className='bg-blue-400 col-span-5'>hello</div>
-        <div className='bg-red-400 col-span-5'>hi</div>
-        <div className='bg-green-400 col-span-2'>yoo</div>
+      <div className='grid md:grid-cols-12'>
+        <div className='col-span-1 md:col-span-5 bg-blue-400 text-red-800 text-5xl rounded-2xl'>hello</div>
+        <div className='col-span-1 md:col-span-5 bg-red-400'>hi</div>
+        <div className='col-span-1 md:col-span-2 bg-green-400'>yoo</div>
       </div>
    </>
   )
