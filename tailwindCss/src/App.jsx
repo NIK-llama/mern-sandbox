@@ -5,16 +5,28 @@ import './App.css'
 import { Button } from './components/Buttons'
 import { Input } from './components/Input'
 import { Logo } from './components/logo'
+import PhoneOtpForm from './components/phone-login'
+
 
 function App() {
   return (
-    <div className='flex flex-col justify-evenly items-center h-screen bg-[#002b5b]'>
+    <div className='flex flex-col items-center h-screen bg-[#002b5b]'>
       <Logo></Logo>
-      <h1 className='text-3xl text-white font-sans font-bold'>Let's Get Started</h1>
+      <h1 className='text-3xl text-white font-sans font-bold mb-5'>Let's Get Started</h1>
       <Input type="text" placeholder="Your Birth Year" />
       <Button disabled={true}>SignUp</Button>
    </div>
   )
 }
 
-export default App
+function App1() {
+  return (
+    <div >
+      <PhoneOtpForm />
+   </div>
+  )
+}
+
+// export default App
+export default App1
+
