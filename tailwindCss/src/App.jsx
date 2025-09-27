@@ -14,19 +14,13 @@ function App() {
       <Logo></Logo>
       <h1 className='text-3xl text-white font-sans font-bold mb-5'>Let's Get Started</h1>
       <Input type="text" placeholder="Your Birth Year" />
+      <PhoneOtpForm />
       <Button disabled={true}>SignUp</Button>
    </div>
   )
 }
 
-function App1() {
-  return (
-    <div >
-      <PhoneOtpForm />
-   </div>
-  )
-}
+export default App
 
-// export default App
-export default App1
+
 
