@@ -1,15 +1,37 @@
-interface UserType {
-    firstname: String,
-    lastname: String,
-    age: number
+type Employee = {
+    name: String,
+    startDate: Date
 }
 
-function greet(user: UserType) {
-
+type Manager = {
+    name: String,
+    department: String
 }
 
-let user: UserType = {
-    firstname: "nik",
-    lastname: "c",
-    age: 21
+type TeamLead = Employee & Manager;
+
+const teamLead: TeamLead = {
+    name: "nik",
+    startDate: new Date(),
+    department: "tech"
 }
+
+console.log(`${teamLead.name} ${teamLead.startDate} ${teamLead.department}`);
+
+
+
+// interface UserType {
+//     firstname: String,
+//     lastname: String,
+//     age: number
+// }
+
+// function greet(user: UserType) {
+
+// }
+
+// let user: UserType = {
+//     firstname: "nik",
+//     lastname: "c",
+//     age: 21
+// }
