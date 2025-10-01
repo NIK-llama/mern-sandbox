@@ -1,21 +1,12 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const teamLead = {
-    name: "nik",
-    startDate: new Date(),
-    department: "tech"
-};
-console.log(`${teamLead.name} ${teamLead.startDate} ${teamLead.department}`);
 // interface UserType {
-//     firstname: String,
-//     lastname: String,
-//     age: number
+//     firstname: string;
+//     lastname: string;
+//     age: number;
 // }
-// function greet(user: UserType) {
-// }
-// let user: UserType = {
-//     firstname: "nik",
-//     lastname: "c",
-//     age: 21
-// }
+Object.defineProperty(exports, "__esModule", { value: true });
+function isLegal(persons) {
+    return persons.filter((user) => user.age > 18);
+}
+console.log(isLegal([{ name: "nik", lastname: "cc", age: 20 }, { name: "vik", lastname: "ck", age: 14 }]));
 //# sourceMappingURL=index.js.map
