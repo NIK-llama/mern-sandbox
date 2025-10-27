@@ -1,4 +1,3 @@
-
 const bcrypt = require("bcrypt");
 const { z } = require("zod");
 const jwt = require("jsonwebtoken");
