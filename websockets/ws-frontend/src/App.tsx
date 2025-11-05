@@ -3,7 +3,7 @@ import "./App.css";
 
 function App() {
   const [socket, setSocket] = useState();
-  const inputRef = useRef();
+  const inputRef = useRef<HTMLInputElement>(null);
 
   function sendMessage() {
     if(!socket) {
