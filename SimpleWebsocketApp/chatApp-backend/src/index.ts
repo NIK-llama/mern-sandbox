@@ -22,7 +22,7 @@ wss.on("connection", (socket) => {
     if (parsedMessage.type === "chat") {
       const currentUserRoom = allSockets.find((x) => x.socket === socket)?.room;
       allSockets.forEach((x) => {
-        if (x.room === currentUserRoom) {
+        if (x.room === currentUserRoom && x.socket !== socket) {
           x.socket.send(parsedMessage.payload.message);
         }
       });
