@@ -73,7 +73,7 @@ function App() {
     <div className="flex flex-col h-screen bg-gray-900 text-white font-inter">
       <div className="p-4 bg-gray-800 shadow-md flex justify-between items-center">
         <h1 className="text-xl font-bold">
-            {joined ? `Room: ${roomId}` : "Simple Chat"}
+            {joined ? `Room: ${roomId}` : "SocketChat"}
         </h1>
         {joined && (
           <span className="text-sm text-purple-400">Connected</span>
