@@ -1,13 +1,21 @@
 import { Client } from "pg";
 
-const client = new Client(
-  ""
-);
+async function insertData(username: string, email: string, password: string) {
+  const client = new Client(
+    ""
+  );
 
-async function main() {
-  await client.connect();
-  const response = await client.query("SELECT * FROM users;");
-  console.log(response.rows);
+  try {
+    await client.connect();
+    const insertQuery = "INSERT INTO users(username, email, password) VALUES($1, $2, $3)";
+    const values = [username, email, password];
+    const res = await client.query(insertQuery, values);
+    console.log("insertion success:",res);
+  } catch(err) {
+    console.error("error during insertion: ",err);
+  } finally {
+    await client.end();
+  }
 }
 
-main();
+insertData("nik321", "nik321@nik.com", "nik321").catch(console.error);
