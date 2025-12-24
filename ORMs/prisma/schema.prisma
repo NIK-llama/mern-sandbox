@@ -12,6 +12,7 @@ model users {
   username      String @unique
   password      String
   age           Int
+  todos         todo[]
 }
 
 model todo {
@@ -19,5 +20,6 @@ model todo {
   title         String
   description   String
   done          Boolean
-  userId        Int   
+  userId        Int
+  user          users @relation(fields: [userId], references: [id])  
 } 
