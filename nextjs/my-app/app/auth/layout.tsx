@@ -1,4 +1,4 @@
-export default function Authlayout({children}) {
+export default function Authlayout({children,}: Readonly <{children: React.ReactNode}>) {
     return (
         <div>
             <div className="p-4 border-b">
