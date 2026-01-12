@@ -14,14 +14,14 @@ export default function Home() {
 
         <div className="flex flex-col gap-4">
           <Link
-            href="/auth/signin"
+            href="/signin"
             className="bg-indigo-600 hover:bg-indigo-500 text-white py-3 rounded-xl font-semibold transition"
           >
             Sign In
           </Link>
 
           <Link
-            href="/auth/signup"
+            href="/signup"
             className="border border-zinc-700 hover:bg-zinc-800 text-white py-3 rounded-xl font-semibold transition"
           >
             Create Account
