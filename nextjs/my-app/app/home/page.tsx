@@ -1,23 +1,15 @@
-import prisma from "@/lib/db";
-
-async function getUserDetails() {
-  try {
-    const user = await prisma.user.findFirst({});
-    return {
-      name: user?.username,
-    };
-  } catch (e) {
-    console.log(e);
-  }
-}
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 
 export default async function Home() {
-  const userData = await getUserDetails();
+  const session = await getServerSession();
+  if (!session) {
+    redirect("/signin");
+  }
   return (
     <div>
-      User Details:
-      <br />
-      <div>Name: {userData?.name}</div>
+      <h1>Hello!!</h1>
+      {JSON.stringify(session)}
     </div>
   );
 }
